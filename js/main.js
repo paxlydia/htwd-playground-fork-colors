@@ -10,16 +10,16 @@ async function loadColors() {
     const records = await response.json();
 
     // Processes each record and builds HTML output.
-    var recordCount = 0;
-    var newInnerHTML = "";
+    let recordCount = 0;
+    let newInnerHTML = "";
     records.forEach(function (record, _index) {
       // Gets the ID and skips blank IDs.
-      var id = String(record.id).trim();
+      const id = String(record.id).trim();
       if (id === "") return;
       // Gets the valid RGB color values.
-      var r = colorValue(record.color.r);
-      var g = colorValue(record.color.g);
-      var b = colorValue(record.color.b);
+      const r = colorValue(record.color.r);
+      const g = colorValue(record.color.g);
+      const b = colorValue(record.color.b);
       // Appends the HTML representation.
       newInnerHTML += recordAsHTML(id, r, g, b);
       // Increments the record count.
@@ -41,7 +41,7 @@ async function loadColors() {
 
 // Handles the change event for the color input fields.
 function handleColorChange(e) {
-  var value = colorValue(e.value);
+  const value = colorValue(e.value);
   if (e.value !== value.toString()) e.value = value;
   updateColorPreview();
 }
@@ -64,12 +64,12 @@ function handleRandomColor(_e) {
 
 // Updates the color preview element based on the current RGB values.
 function updateColorPreview() {
-  var r = colorValue(document.getElementById("r").value);
-  var g = colorValue(document.getElementById("g").value);
-  var b = colorValue(document.getElementById("b").value);
-  var color = RGBColorValue(r, g, b);
-  var title = titleAttribute("Preview", color);
-  var element = document.getElementById("colorPreview");
+  const r = colorValue(document.getElementById("r").value);
+  const g = colorValue(document.getElementById("g").value);
+  const b = colorValue(document.getElementById("b").value);
+  const color = RGBColorValue(r, g, b);
+  const title = titleAttribute("Preview", color);
+  const element = document.getElementById("colorPreview");
   element.style["background-color"] = color;
   element.title = title;
   document.getElementById("colorPreviewJson").innerHTML = recordAsJSON(r, g, b);
@@ -89,8 +89,8 @@ function titleAttribute(id, color) {
 
 // Creates an HTML span element string.
 function recordAsHTML(id, r, g, b) {
-  var color = RGBColorValue(r, g, b);
-  var title = titleAttribute(id, color);
+  const color = RGBColorValue(r, g, b);
+  const title = titleAttribute(id, color);
   return (
     '<span title="' +
     title +
@@ -107,7 +107,7 @@ function recordAsJSON(r, g, b) {
 
 // Escapes special characters in a string for safe HTML display.
 function escapeHTML(text) {
-  var map = {
+  const map = {
     "&": "&amp;",
     "<": "&lt;",
     ">": "&gt;",
@@ -121,6 +121,6 @@ function escapeHTML(text) {
 
 // Validates a color value to be between 0 and 255.
 function colorValue(value) {
-  var x = parseInt(value) || 0;
+  const x = parseInt(value) || 0;
   return x < 0 ? 0 : x > 255 ? 255 : x;
 }
