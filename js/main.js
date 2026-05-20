@@ -1,36 +1,38 @@
 // load json function
 
-function loadColors() {
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      var recordCount = 0;
-      var records = JSON.parse(this.responseText);
-      var newInnerHTML = "";
+async function loadColors() {
+  try {
+    const response = await fetch(`data/colors.json?t=${Date.now()}`);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-      // process records
-      records.forEach(function (record, index) {
-        // get id and skip blank ids
-        var id = String(record.id).trim();
-        if (id == "") return;
-        // get RGB color values
-        var r = colorValue(record.color.r);
-        var g = colorValue(record.color.g);
-        var b = colorValue(record.color.b);
-        // set HTML output
-        newInnerHTML += recordAsHTML(id, r, g, b);
-        // count records found
-        recordCount++;
-      });
-      // message for no records
-      if (recordCount == 0) newInnerHTML = "No colors found! 😭";
+    const records = await response.json();
+    var recordCount = 0;
+    var newInnerHTML = "";
 
-      // replace content
-      document.getElementById("colorRecords").innerHTML = newInnerHTML;
-    }
-  };
-  xmlhttp.open("GET", "data/colors.json?t=" + Date.now(), true);
-  xmlhttp.send();
+    // process records
+    records.forEach(function (record, _index) {
+      // get id and skip blank ids
+      var id = String(record.id).trim();
+      if (id == "") return;
+      // get RGB color values
+      var r = colorValue(record.color.r);
+      var g = colorValue(record.color.g);
+      var b = colorValue(record.color.b);
+      // set HTML output
+      newInnerHTML += recordAsHTML(id, r, g, b);
+      // count records found
+      recordCount++;
+    });
+    // message for no records
+    if (recordCount == 0) newInnerHTML = "No colors found! 😭";
+
+    // replace content
+    document.getElementById("colorRecords").innerHTML = newInnerHTML;
+  } catch (error) {
+    console.error("Failed to load colors:", error);
+    document.getElementById("colorRecords").innerHTML =
+      "Error loading colors 😞";
+  }
 }
 
 // choose color functions
