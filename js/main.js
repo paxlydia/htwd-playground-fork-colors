@@ -1,4 +1,6 @@
-// Loads the colors data from the JSON file and updates the page content.
+/**
+ * Loads the colors data from the JSON file and updates the page content.
+ */
 async function loadColors() {
   try {
     // Fetches the colors data from the JSON file
@@ -39,14 +41,20 @@ async function loadColors() {
 
 // -- Choice color functions --
 
-// Handles the change event for the color input fields.
+/**
+ * Handles the change event for the color input fields.
+ * @param {HTMLInputElement} e
+ */
 function handleColorChange(e) {
   const value = colorValue(e.value);
   if (e.value !== value.toString()) e.value = value;
   updateColorPreview();
 }
 
-// Handles the click event for the random color button.
+/**
+ * Handles the click event for the random color button.
+ * @param {Event} _e
+ */
 function handleRandomColor(_e) {
   const min = 50; // Minimum value avoids very dark colors (0-49).
   const max = 255; // Maximum color value (255).
@@ -62,7 +70,9 @@ function handleRandomColor(_e) {
   updateColorPreview();
 }
 
-// Updates the color preview element based on the current RGB values.
+/**
+ * Updates the color preview element based on the current RGB values.
+ */
 function updateColorPreview() {
   const r = colorValue(document.getElementById("r").value);
   const g = colorValue(document.getElementById("g").value);
@@ -77,17 +87,35 @@ function updateColorPreview() {
 
 // -- Helper functions --
 
-// Converts RGB values to a CSS color string.
+/**
+ * Converts RGB values to a CSS color string.
+ * @param {number} r
+ * @param {number} g
+ * @param {number} b
+ * @returns {string}
+ */
 function RGBColorValue(r, g, b) {
   return "rgb(" + r + ", " + g + ", " + b + ")";
 }
 
-// Creates a escaped title attribute string.
+/**
+ * Creates an escaped title attribute string.
+ * @param {string} id
+ * @param {string} color
+ * @returns {string}
+ */
 function titleAttribute(id, color) {
   return escapeHTML(id) + "\n" + escapeHTML(color);
 }
 
-// Creates an HTML span element string.
+/**
+ * Creates an HTML span element string.
+ * @param {string} id
+ * @param {number} r
+ * @param {number} g
+ * @param {number} b
+ * @returns {string}
+ */
 function recordAsHTML(id, r, g, b) {
   const color = RGBColorValue(r, g, b);
   const title = titleAttribute(id, color);
@@ -100,12 +128,22 @@ function recordAsHTML(id, r, g, b) {
   );
 }
 
-// Creates a JSON string representation of a RGB color.
+/**
+ * Creates a JSON string representation of an RGB color.
+ * @param {number} r
+ * @param {number} g
+ * @param {number} b
+ * @returns {string}
+ */
 function recordAsJSON(r, g, b) {
   return '"color": { "r": ' + r + ', "g": ' + g + ', "b": ' + b + " }";
 }
 
-// Escapes special characters in a string for safe HTML display.
+/**
+ * Escapes special characters in a string for safe HTML display.
+ * @param {string} text
+ * @returns {string}
+ */
 function escapeHTML(text) {
   const map = {
     "&": "&amp;",
@@ -119,7 +157,11 @@ function escapeHTML(text) {
   });
 }
 
-// Validates a color value to be between 0 and 255.
+/**
+ * Validates a color value to be between 0 and 255.
+ * @param {string|number} value
+ * @returns {number}
+ */
 function colorValue(value) {
   const x = parseInt(value) || 0;
   return x < 0 ? 0 : x > 255 ? 255 : x;
