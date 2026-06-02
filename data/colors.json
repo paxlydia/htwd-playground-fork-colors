@@ -258,8 +258,8 @@
   },
   {
     "_comment": "Reihe 1 Platz 5",
-    "id": "",
-    "color": { "r": 255, "g": 255, "b": 255 }
+    "id": "s89580",
+    "color": { "r": 139, "g": 69, "b": 142 }
   },
   {
     "_comment": "Reihe 1 Platz 6",
@@ -389,10 +389,5 @@
     "_comment": "Reihe 5 Platz 6",
     "id": "",
     "color": { "r": 255, "g": 255, "b": 255 }
-  }
-  {
-    "_comment": "Reihe 1 Platz 5",
-    "id": "s89580",
-    "color": { "r": 139, "g": 69, "b": 142 }
   }
 ]
